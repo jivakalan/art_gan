@@ -31,26 +31,26 @@ class DCGAN:
     #initial generator starting points -dim=7,depth=64 7x7x64
     def build_discriminator(width, height, depth, alpha=0.2):
         
-        dmodel = Sequential()
+        model = Sequential()
         #what is alpha ? 
 		# initialize the model along with the input shape to be
 		# "channels last"
         inputShape = (height, width, depth)
 		# first set of CONV => RELU layers
-        dmodel.add(Conv2D(32, (5, 5), padding="same", strides=(2, 2),input_shape=inputShape))
-        dmodel.add(LeakyReLU(alpha=alpha))
+        model.add(Conv2D(32, (5, 5), padding="same", strides=(2, 2),input_shape=inputShape))
+        model.add(LeakyReLU(alpha=alpha))
 		# second set of CONV => RELU layers
-        dmodel.add(Conv2D(64, (5, 5), padding="same", strides=(2, 2)))
-        dmodel.add(LeakyReLU(alpha=alpha))
+        model.add(Conv2D(64, (5, 5), padding="same", strides=(2, 2)))
+        model.add(LeakyReLU(alpha=alpha))
 		# first (and only) set of FC => RELU layers
-        dmodel.add(Flatten())
-        dmodel.add(Dense(512))
-        dmodel.add(LeakyReLU(alpha=alpha))
+        model.add(Flatten())
+        model.add(Dense(512))
+        model.add(LeakyReLU(alpha=alpha))
 		# sigmoid layer outputting a single value
-        dmodel.add(Dense(1))
-        dmodel.add(Activation("sigmoid"))
+        model.add(Dense(1))
+        model.add(Activation("sigmoid"))
 		# return the discriminator model
-        return dmodel
+        return model
     
     def build_generator(dim, depth, channels = 1, inputDim= 100, outputDim= 512):
         
