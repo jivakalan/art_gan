@@ -134,7 +134,7 @@ class DCGAN:
        # to create deeper GANs without increasing spatial resolution..use standard convolution or transposed convolution but use stride =1 
        
         model.add(Conv2DTranspose(channels, (5, 5), strides=(2, 2), padding="same"))
-        #how do you figure out what the sizes of the output layers should be in practice, when dealing with differently sized inputs?? --pyimage search makes it sound like its going to be a lot of trial and error and debug with model.summary() --not trail and error..use the formula but you will likely stumble at first - that's ok
+        #how do you figure out what the sizes of the output layers should be in practice, when dealing with differently sized inputs?? --pyimage search makes it sound like its going to be a lot of trial and error and debug with model.summary() --not trial and error..use the formula but you will likely stumble at first - that's ok
 	   #making sure that # of filters learned is = channels (1-grayscale,3=RGB)
         model.add(Activation("tanh"))
        

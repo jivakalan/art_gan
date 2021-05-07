@@ -29,6 +29,7 @@ Created on Thu Mar 18 22:50:19 2021
 # To reduce checkerboard pixel artifacts in the output image, use a kernel size that is divisible by the stride when utilizing convolution or transposed convolution in both the generator and discriminator.
 # If your adversarial loss rises dramatically while your discriminator loss falls to zero, try reducing the learning rate of the discriminator and increasing the dropout of the discriminator.
 # =============================================================================
+#os.chdir(r'C:\Users\kalan\Projects\art_gan')
 
 from imutils import build_montages
 from tensorflow.keras.datasets import fashion_mnist
@@ -46,7 +47,7 @@ from gan_tutorial import DCGAN
 
 ap=argparse.ArgumentParser()
 ap.add_argument("-o", "--output", required=True, help="path to output directory")
-ap.add_argument("-e","--epochs", type = int, default = 50 , help="#epochs to train for")
+ap.add_argument("-e","--epochs", type = int, default = 10 , help="#epochs to train for")
 ap.add_argument("-b","--batch-size", type = int, default = 128 , help="batch size for training samples")
 args = vars(ap.parse_args())
 
@@ -55,14 +56,20 @@ BATCH_SIZE = args["batch_size"]
 INIT_LR = 2e-4
 
 
+
+
 print("[INFO] Loading MNIST data...")
-##download the data from fashion_mnist and then stack the train and test into one big array
+#download the data from fashion_mnist and then stack the train and test into one big array
 ((trainX,_), (testX, _)) = fashion_mnist.load_data()
 trainImages = np.concatenate([trainX,testX])
 
-#add an extra dimension for the channel and scale the images into range [-1,1] (range of tanh function)
+##add an extra dimension for the channel and scale the images into range [-1,1] (range of tanh function)
 trainImages = np.expand_dims(trainImages, axis=-1)
 trainImages = (trainImages.astype("float") -127.5)/127.5
+
+
+
+
 
 
 print("[INFO] building generator...")
